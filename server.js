@@ -11,14 +11,34 @@ var server = http.createServer(handleRequest);
 // Create a function for handling the requests and responses coming into our server
 function handleRequest(req, res) {
 
-  // Here we use the fs package to read our index.html file
-  fs.readFile(__dirname + "/home.html", function(err, data) {
+	var path = req.url;
 
-    // We then respond to the client with the HTML page by specifically telling the browser that we are delivering
-    // an html file.
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.end(data);
-  }); 
+	switch(path){
+
+		case"/foods":
+			return fs.readFile(__dirname + "/foods.html", function(err, data) {
+				res.writeHead(200, { "Content-Type": "text/html"});
+				res.end(data);
+		});
+
+		case"/movies":
+			return fs.readFile(__dirname + "/movies.html", function(err, data) {
+				res.writeHead(200, { "Content-Type": "text/html"});
+				res.end(data);
+		});
+
+		case"/frameworks":
+			return fs.readFile(__dirname + "/frameworks.html", function(err, data) {
+				res.writeHead(200, { "Content-Type": "text/html"});
+				res.end(data);
+		});
+
+		default:
+      		return fs.readFile(__dirname + "/home.html", function(err, data) {
+        		res.writeHead(200, { "Content-Type": "text/html" });
+        		res.end(data);
+      });
+	}
 }
 
 // Starts our server
